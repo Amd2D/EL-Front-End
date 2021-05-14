@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, {useState} from 'react';
 import './Home.css';
 import {Button} from '@material-ui/core';
 import {CardActions} from '@material-ui/core';
@@ -7,7 +8,7 @@ import InputBase from '@material-ui/core/InputBase';
 import {makeStyles} from "@material-ui/core/styles";
 import Modal from '@material-ui/core/Modal';
 import { Link } from "react-router-dom";
-import {getAllItems,getItems} from "../actions/actions"
+import {getAllItems,getItems,setAlert,createItem} from "../actions/actions"
 import {useDispatch,useSelector} from 'react-redux'
 
 function getModalStyle() {
@@ -73,9 +74,23 @@ export default function Home(){
     const dispatch=useDispatch();
     const classes = useStyles();
 
+    const alOp=useSelector(state=>state.Item.alert_msg);
+    const msg=useSelector(state=>state.Item.msg);
     const [type,setType]=React.useState('');
+    const [newName,setName]=useState('');
+    const [newType,setTypes]=useState('');
+    const [newPrice,setPrice]=useState('');
+    const [newImg,setImg]=useState('');
+    const [newDesc,setDesc]=useState('');
+
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
+
+    
+
+    const update=e=>{
+        setType(e.target.value)
+    }
 
     const handleOpen = () => {
         setOpen(true);
@@ -85,26 +100,56 @@ export default function Home(){
         setOpen(false);
     };
 
-    const update=(e)=>{
-        setType(e.target.value)
+    if (alOp===true){
+        
+        alert(msg);
+        dispatch(setAlert(false));
+        dispatch(getAllItems());
+       
     }
 
-    const handleSubmit=()=>{
-        if(type===''){
-            dispatch(getAllItems());
-        }else{
-            dispatch(getItems(type));
-            setType('');
-        }
+
+    const setN=e=>{
+        setName(e.target.value)
     }
+
+    const setD=e=>{
+        setDesc(e.target.value)
+    }
+
+    const setI=e=>{
+        setImg(e.target.value)
+    }
+
+    const setP=e=>{
+        setPrice(e.target.value);
+    }
+    const setT=e=>{
+        setTypes(e.target.value);
+    }
+
+    const handleUpdate=()=>{
+        const data={
+            name:newName,
+            type:newType,
+            price:newPrice,
+            img:newImg,
+            description:newDesc
+        }
+        dispatch(createItem(data));
+    }
+    
+
 
     const body = (
         <div style={modalStyle} className={classes.paper}>
+
             <h2 id="simple-modal-title">Enter new product details</h2>
             <div className={classes.inputField}>
                 <p id="simple-modal-description" className={classes.inputLabel}>
                     Name:
                 </p>
+
                 <InputBase
                     placeholder="Add a Name"
                     classes={{
@@ -112,10 +157,14 @@ export default function Home(){
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
+                    value={newName}
+                    onChange={setN}
                 />
             </div>
+
             <div className={classes.inputField}>
                 <p id="simple-modal-description" className={classes.inputLabel}>
+
                     Type:
                 </p>
                 <InputBase
@@ -125,6 +174,8 @@ export default function Home(){
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
+                    value={newType}
+                    onChange={setT}
                 />
             </div>
             <div className={classes.inputField}>
@@ -138,6 +189,8 @@ export default function Home(){
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
+                    value={newPrice}
+                    onChange={setP}
                 />
             </div>
             <div className={classes.inputField}>
@@ -151,6 +204,8 @@ export default function Home(){
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
+                    value={newDesc}
+                    onChange={setD}
                 />
             </div>
             <div className={classes.inputField}>
@@ -158,24 +213,41 @@ export default function Home(){
                     Image URL:
                 </p>
                 <InputBase
+
+                    onChange={setI}
+
                     placeholder="Add an Image URL"
+
                     classes={{
                         root: classes.inputRoot,
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
+                    value={newImg}
                 />
             </div>
             <Button
-                onClick={handleOpen}
+                onClick={()=>handleUpdate()}
                 variant="contained"
                 color="primary"
-                className={classes.addButton}
+                className={classes.updateButton}
                 startIcon={<SaveIcon />}
-            >Save
+            >Update
             </Button>
+
         </div>
     );
+
+    const handleSubmit=()=>{
+        if(type===''){
+            dispatch(getAllItems());
+        }else{
+            dispatch(getItems(type));
+            setType('');
+        }
+    }
+
+    
 
     return(
         <div className="homepage">

@@ -1,4 +1,6 @@
-import React from 'react';
+
+import React,{useState,useEffect} from 'react';
+import ReactDOM from 'react-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -11,6 +13,8 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Modal from "@material-ui/core/Modal";
 import InputBase from "@material-ui/core/InputBase";
 import SaveIcon from "@material-ui/icons/Save";
+import {deleteItem,setAlert, getAllItems, updateItem} from "../actions/actions";
+import {useDispatch,useSelector} from "react-redux"
 
 function getModalStyle() {
     const top = 50
@@ -89,8 +93,20 @@ const useStyles = makeStyles((theme) => ({
 export default function Items({name,id,type,price,img,desc}) {
     const classes = useStyles();
 
+   
+    const alOp=useSelector(state=>state.Item.alert_msg);
+    const msg=useSelector(state=>state.Item.msg);
+
+    const [newName,setName]=useState(name);
+    const [newType,setType]=useState(type);
+    const [newPrice,setPrice]=useState(price);
+    const [newImg,setImg]=useState(img);
+    const [newDesc,setDesc]=useState(desc);
+
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
+
+    const dispatch=useDispatch();
 
     const handleOpen = () => {
         setOpen(true);
@@ -99,6 +115,55 @@ export default function Items({name,id,type,price,img,desc}) {
     const handleClose = () => {
         setOpen(false);
     };
+
+    useEffect(()=>{
+        dispatch(getAllItems());
+    },[])
+
+
+    if (alOp===true){
+        alert(msg);
+        dispatch(setAlert(false));
+        dispatch(getAllItems());
+    }
+
+    const handleDelete=()=>{
+        dispatch(deleteItem(id));
+    }
+
+    const setN=e=>{
+        setName(e.target.value)
+    }
+
+    const setD=e=>{
+        setDesc(e.target.value)
+    }
+
+    const setI=e=>{
+        setImg(e.target.value)
+    }
+
+    const setP=e=>{
+        setPrice(e.target.value);
+    }
+    const setT=e=>{
+        setType(e.target.value);
+    }
+
+    const handleUpdate=()=>{
+        const data={
+            id:id,
+            name:newName,
+            type:newType,
+            price:newPrice,
+            img:newImg,
+            description:newDesc
+        }
+        console.log("dispatcing")
+        dispatch(updateItem(data));
+    }
+    
+
 
     const body = (
         <div style={modalStyle} className={classes.paper}>
@@ -114,6 +179,8 @@ export default function Items({name,id,type,price,img,desc}) {
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
+                    value={newName}
+                    onChange={setN}
                 />
             </div>
 
@@ -128,6 +195,8 @@ export default function Items({name,id,type,price,img,desc}) {
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
+                    value={newType}
+                    onChange={setT}
                 />
             </div>
             <div className={classes.inputField}>
@@ -141,6 +210,8 @@ export default function Items({name,id,type,price,img,desc}) {
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
+                    value={newPrice}
+                    onChange={setP}
                 />
             </div>
             <div className={classes.inputField}>
@@ -154,6 +225,8 @@ export default function Items({name,id,type,price,img,desc}) {
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
+                    value={newDesc}
+                    onChange={setD}
                 />
             </div>
             <div className={classes.inputField}>
@@ -161,16 +234,18 @@ export default function Items({name,id,type,price,img,desc}) {
                     Image URL:
                 </p>
                 <InputBase
+                    onChange={setI}
                     placeholder="Browse a specific item..."
                     classes={{
                         root: classes.inputRoot,
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
+                    value={newImg}
                 />
             </div>
             <Button
-                onClick={handleOpen}
+                onClick={()=>handleUpdate()}
                 variant="contained"
                 color="primary"
                 className={classes.updateButton}
@@ -193,52 +268,46 @@ export default function Items({name,id,type,price,img,desc}) {
                     title={type}
                 />
         </Card>
-            <Card className={classes.root}>
-                <CardContent>
-                    <div className={classes.itemTitle}>
-                        <Typography gutterBottom={true} variant="h4" component="h2" align='center'>
-                            {type} - {name}
-                        </Typography>
-                    </div>
-                    <div className={classes.itemDescription}>
-                        <Typography paragraph={true} gutterBottom={true} variant="body1" color="textSecondary"
-                                    component="p">
-                            Description: {desc}
-                        </Typography>
-                    </div>
-                    <div className={classes.itemPrice}>
-                        <Typography gutterBottom={true} variant="h5" component="h2" align='right'>
-                            Price: {price}$
-                        </Typography>
-                    </div>
-                </CardContent>
-                <CardActions>
-                    <Button
-                        onClick={handleOpen}
-                        variant="contained"
-                        color="primary"
-                        className={classes.updateButton}
-                        startIcon={<CloudUploadIcon/>}
-                    >Update
-                    </Button>
-                    <Modal
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="simple-modal-title"
-                        aria-describedby="simple-modal-description"
-                    >
-                        {body}
-                    </Modal>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        className={classes.deleteButton}
-                        startIcon={<DeleteIcon/>}
-                    >
-                        Delete
-                    </Button>
-                </CardActions>
-            </Card>
+    <Card className={classes.root}>
+            <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  {name}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                    Description: {desc}
+                </Typography>
+                <Typography gutterBottom variant="h5" component="h2">
+                    Price: {price}
+                </Typography>
+            </CardContent>
+        <CardActions>
+            <Button
+                onClick={handleOpen}
+                variant="contained"
+                color="primary"
+                className={classes.updateButton}
+                startIcon={<CloudUploadIcon />}
+                >Update
+            </Button>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+            >
+                {body}
+            </Modal>
+            <Button
+                variant="contained"
+                color="secondary"
+                className={classes.deleteButton}
+                startIcon={<DeleteIcon />}
+                onClick={()=>handleDelete()}
+            >
+                Delete
+            </Button>
+        </CardActions>
+    </Card>
         </>
     );
 }

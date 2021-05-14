@@ -19,6 +19,36 @@ export const getTypeItems=async(data)=>{
         return res.data;
     }
     catch (error) {
-        console.log(error);        }
+        console.log(error);     
+       }
 }
 
+export const deleteItem=async(data)=>{
+    try{
+        const res=await api.delete(`/product/delete/${data}`);
+        
+        return res.data;
+    } catch (error) {
+        console.log(error);    
+        }
+}
+
+export const updateItem=async(data)=>{
+    try{
+        console.log(data)
+        const res=await api.put(`/product/update/${data.id}`,data);
+        return res.data;
+    } catch (error) {
+        console.log(error);    
+        }
+}
+
+export const createItem=async(data)=>{
+    try{
+        console.log(data)
+        const res=await api.post(`/product/insert`,data);
+        return res.data;
+    } catch (error) {
+        console.log(error);    
+        }
+}
