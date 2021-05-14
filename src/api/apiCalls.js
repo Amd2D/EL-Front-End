@@ -15,11 +15,10 @@ export const getItems =  async () => {
 export const getTypeItems=async(data)=>{
     try{
         //making the call:
-        const res = await api.get(`/items/${data}/?page=0&size=30}`);
+        const res = await api.get(`/items/${data}/?page=0&size=30`);
         return res.data;
     }
     catch (error) {
         console.log(error);        }
 }
-
 

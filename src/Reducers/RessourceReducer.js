@@ -1,7 +1,8 @@
 import {SET_ITEMS} from "../actions/actions"
 
 const initial={
-    items:[]
+    items:[],
+    msg:"",
 }
 
 const ItemReducer=(state=initial,action)=>{

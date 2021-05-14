@@ -61,13 +61,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Slider() {
-    const items = [1,2,3];
+    const items=useSelector(state=>state.Item.items)
     const items_ = items.map(item=>(
         <div className='itemContainer'>
-            <Items/>
+            <Items name={item.name} id={item.id}  type={item.type} price={item.price} img={item.img} desc={item.description} />
         </div>
     ));
-    console.log(items_)
 
     const classes = useStyles();
 
@@ -82,84 +81,7 @@ export default function Slider() {
         setOpen(false);
     };
 
-    const body = (
-        <div style={modalStyle} className={classes.paper}>
-            <h2 id="simple-modal-title">Enter new product details</h2>
-            <div className='inputField'>
-            <p id="simple-modal-description">
-                Name:
-            </p>
-            <InputBase
-                placeholder="Browse a specific item..."
-                classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-            />
-            </div>
-            <div className='inputField'>
-            <p id="simple-modal-description">
-                Type:
-            </p>
-            <InputBase
-                placeholder="Browse a specific item..."
-                classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-            />
-            </div>
-            <div className='inputField'>
-            <p id="simple-modal-description">
-                Price:
-            </p>
-            <InputBase
-                placeholder="Browse a specific item..."
-                classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-            />
-            </div>
-            <div className='inputField'>
-            <p id="simple-modal-description">
-                Description:
-            </p>
-            <InputBase
-                placeholder="Browse a specific item..."
-                classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-            />
-            </div>
-            <div className='inputField'>
-            <p id="simple-modal-description">
-                Image URL:
-            </p>
-            <InputBase
-                placeholder="Browse a specific item..."
-                classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-            />
-            </div>
-            <Button
-                onClick={handleOpen}
-                variant="contained"
-                color="primary"
-                className={classes.addButton}
-                startIcon={<SaveIcon />}
-            >Save
-            </Button>
-        </div>
-    );
+    
 
     return (
             <AwesomeSlider

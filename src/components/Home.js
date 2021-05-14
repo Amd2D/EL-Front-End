@@ -7,6 +7,8 @@ import InputBase from '@material-ui/core/InputBase';
 import {makeStyles} from "@material-ui/core/styles";
 import Modal from '@material-ui/core/Modal';
 import { Link } from "react-router-dom";
+import {getAllItems,getItems} from "../actions/actions"
+import {useDispatch,useSelector} from 'react-redux'
 
 function getModalStyle() {
     const top = 50
@@ -67,8 +69,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Home(){
+
+    const dispatch=useDispatch();
+  
     const classes = useStyles();
 
+    const [type,setType]=React.useState('');
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
 
@@ -79,6 +85,19 @@ export default function Home(){
     const handleClose = () => {
         setOpen(false);
     };
+
+    const update=(e)=>{
+        setType(e.target.value)
+    }
+
+    const handleSubmit=()=>{
+        if(type===''){
+            dispatch(getAllItems());
+        }else{
+            dispatch(getItems(type));
+            setType('');
+        }
+    }
 
     const body = (
         <div style={modalStyle} className={classes.paper}>
@@ -194,6 +213,8 @@ export default function Home(){
                     input: classes.inputInput,
                 }}
                 inputProps={{ 'aria-label': 'search' }}
+                value={type}
+                onChange={update}
             />
             </div>
             <Link to="/items">
