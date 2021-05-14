@@ -6,6 +6,8 @@ import InputBase from '@material-ui/core/InputBase';
 import {makeStyles} from "@material-ui/core/styles";
 import Modal from '@material-ui/core/Modal';
 import { Link } from "react-router-dom";
+import {getAllItems,getItems} from "../actions/actions"
+import {useDispatch,useSelector} from 'react-redux'
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -39,12 +41,31 @@ const useStyles = makeStyles((theme) => ({
     addButton: {
         margin: theme.spacing(1),
     },
+    paper: {
+        display: 'flex',
+        flexDirection:'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        width: 400,
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+    },
+    inputField:{
+        display: 'flex',
+        flexDirection:'row',
+        justifyContent:'center'
+    }
 }));
 
 export default function Home(){
 
+    const dispatch=useDispatch();
     const classes = useStyles();
 
+    const [type,setType]=React.useState('');
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
 
@@ -55,6 +76,19 @@ export default function Home(){
     const handleClose = () => {
         setOpen(false);
     };
+
+    const update=(e)=>{
+        setType(e.target.value)
+    }
+
+    const handleSubmit=()=>{
+        if(type===''){
+            dispatch(getAllItems());
+        }else{
+            dispatch(getItems(type));
+            setType('');
+        }
+    }
 
     const body = (
         <div style={modalStyle} className={classes.paper}>
@@ -152,6 +186,7 @@ export default function Home(){
                 color="primary"
                 className={classes.addButton}
                 // startIcon={<SaveIcon />}
+                onClick={()=>handleSubmit()}
             >Browse Products
             </Button>
             </Link>
@@ -170,6 +205,8 @@ export default function Home(){
                     input: classes.inputInput,
                 }}
                 inputProps={{ 'aria-label': 'search' }}
+                value={type}
+                onChange={update}
             />
             <CardActions>
                 <Button
