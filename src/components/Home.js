@@ -1,4 +1,5 @@
 import React from 'react';
+import './Home.css';
 import {Button} from '@material-ui/core';
 import {CardActions} from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
@@ -7,13 +8,9 @@ import {makeStyles} from "@material-ui/core/styles";
 import Modal from '@material-ui/core/Modal';
 import { Link } from "react-router-dom";
 
-function rand() {
-    return Math.round(Math.random() * 20) - 10;
-}
-
 function getModalStyle() {
-    const top = 50 + rand();
-    const left = 50 + rand();
+    const top = 50
+    const left = 50
 
     return {
         top: `${top}%`,
@@ -28,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
     },
     inputInput: {
         padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
         transition: theme.transitions.create('width'),
         width: '100%',
@@ -36,13 +32,41 @@ const useStyles = makeStyles((theme) => ({
             width: '20ch',
         },
     },
+    browseButton: {
+        margin: theme.spacing(1),
+        backgroundColor:'#0c274e',
+        '&:hover': {
+            backgroundColor: '#0c274e',
+        },
+    },
     addButton: {
         margin: theme.spacing(1),
+    },
+    paper: {
+        display: 'flex',
+        flexDirection:'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        width: 500,
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+    },
+    inputField:{
+        display: 'flex',
+        flexDirection:'row',
+        width:"100%",
+    },
+    inputLabel:{
+        width:"20%",
+        marginRight:"10%",
+        marginLeft:"10%"
     },
 }));
 
 export default function Home(){
-
     const classes = useStyles();
 
     const [modalStyle] = React.useState(getModalStyle);
@@ -59,12 +83,12 @@ export default function Home(){
     const body = (
         <div style={modalStyle} className={classes.paper}>
             <h2 id="simple-modal-title">Enter new product details</h2>
-            <div className='inputField'>
-                <p id="simple-modal-description">
+            <div className={classes.inputField}>
+                <p id="simple-modal-description" className={classes.inputLabel}>
                     Name:
                 </p>
                 <InputBase
-                    placeholder="Browse a specific item..."
+                    placeholder="Add a Name"
                     classes={{
                         root: classes.inputRoot,
                         input: classes.inputInput,
@@ -72,12 +96,12 @@ export default function Home(){
                     inputProps={{ 'aria-label': 'search' }}
                 />
             </div>
-            <div className='inputField'>
-                <p id="simple-modal-description">
+            <div className={classes.inputField}>
+                <p id="simple-modal-description" className={classes.inputLabel}>
                     Type:
                 </p>
                 <InputBase
-                    placeholder="Browse a specific item..."
+                    placeholder="Add a Type"
                     classes={{
                         root: classes.inputRoot,
                         input: classes.inputInput,
@@ -85,12 +109,12 @@ export default function Home(){
                     inputProps={{ 'aria-label': 'search' }}
                 />
             </div>
-            <div className='inputField'>
-                <p id="simple-modal-description">
+            <div className={classes.inputField}>
+                <p id="simple-modal-description" className={classes.inputLabel}>
                     Price:
                 </p>
                 <InputBase
-                    placeholder="Browse a specific item..."
+                    placeholder="Add a Price"
                     classes={{
                         root: classes.inputRoot,
                         input: classes.inputInput,
@@ -98,12 +122,12 @@ export default function Home(){
                     inputProps={{ 'aria-label': 'search' }}
                 />
             </div>
-            <div className='inputField'>
-                <p id="simple-modal-description">
+            <div className={classes.inputField}>
+                <p id="simple-modal-description" className={classes.inputLabel}>
                     Description:
                 </p>
                 <InputBase
-                    placeholder="Browse a specific item..."
+                    placeholder="Add a Description"
                     classes={{
                         root: classes.inputRoot,
                         input: classes.inputInput,
@@ -111,12 +135,12 @@ export default function Home(){
                     inputProps={{ 'aria-label': 'search' }}
                 />
             </div>
-            <div className='inputField'>
-                <p id="simple-modal-description">
+            <div className={classes.inputField}>
+                <p id="simple-modal-description" className={classes.inputLabel}>
                     Image URL:
                 </p>
                 <InputBase
-                    placeholder="Browse a specific item..."
+                    placeholder="Add an Image URL"
                     classes={{
                         root: classes.inputRoot,
                         input: classes.inputInput,
@@ -139,38 +163,47 @@ export default function Home(){
         <div className="homepage">
             <header className="header">
                 <h1>
-                    Welcome
+                    Welcome to our Electronic Store
                 </h1>
             </header>
             <body className="body">
-            <p>
-                project description goes here...
+            <div className="descriptionBox">
+            <p className="desc">
+                This application features:
             </p>
+                <ul className="description">
+                    <li>
+                        Adding a new product to the list of products
+                    </li>
+                    <li>
+                        Browsing and optionally Filtering the list depending on the type of product
+                    </li>
+                    <li>
+                        Updating or Deleting a product
+                    </li>
+                </ul>
+            </div>
+            <div className="inputs">
+            <p>
+                Filter Products by Type:
+            </p>
+            <InputBase
+                placeholder="Laptop, Console, ..."
+                classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+            />
+            </div>
             <Link to="/items">
-            <Button
-                variant="contained"
-                color="primary"
-                className={classes.addButton}
-                // startIcon={<SaveIcon />}
-            >Browse Products
-            </Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.browseButton}
+                >Browse Products
+                </Button>
             </Link>
-            <InputBase
-                placeholder="Name"
-                classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-            />
-            <InputBase
-                placeholder="Type"
-                classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-            />
             <CardActions>
                 <Button
                     onClick={handleOpen}

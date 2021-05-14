@@ -1,7 +1,7 @@
 .homepage {
-    background-image: url(./mainBG.jpg);
-    width: 80%;
-    height: 100%;
+    background-image: url(../mainBG.jpg);
+    min-width: 100%;
+    min-height:100vh;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -16,13 +16,32 @@
     color: white;
     align-items: center;
     justify-content: center;
+    margin-bottom: 30px;
 }
 
 .body {
     display:flex;
     flex-direction: column;
-    text-align:center;
     align-items: center;
-    justify-content: center;
     color: white;
+}
+
+.descriptionBox {
+    display:flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+}
+
+.desc {
+    text-align:center;
+    font-size: 20px;
+}
+
+.description {
+}
+
+.inputs {
+    display: flex;
+    flex-direction: row;
+    text-align:center;
 }
