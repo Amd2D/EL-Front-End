@@ -1,24 +1,40 @@
-import logo from './logo.svg';
 import './App.css';
+import AwesomeSlider from 'react-awesome-slider';
+import 'react-awesome-slider/dist/styles.css';
+import Card from './components/Card'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    return (
+            <AwesomeSlider
+                fillParent={true}
+                infinite={false}
+                bullets={false}
+            >
+                <div className="homepage">
+                    <header className="header">
+                        <h1>
+                            Welcome
+                        </h1>
+                    </header>
+                    <body className="body">
+                    <p>
+                        project description goes here...
+                    </p>
+                    <p>
+                        Browse items
+                    </p>
+                    <p>
+                        Add new item
+                    </p>
+                    </body>
+                </div>
+                <div className={"itemContainer"}>
+                    <Card/>
+                </div>
+                <div className={"itemContainer"}>
+                    <Card/>
+                </div>
+            </AwesomeSlider>
   );
 }
 

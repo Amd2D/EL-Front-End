@@ -1,0 +1,10 @@
+.itemContainer{
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+}
+
+.imageContainer{
+    border-color:white;
+    border-width: 1px;
+}
