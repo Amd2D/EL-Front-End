@@ -71,7 +71,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Home(){
 
     const dispatch=useDispatch();
-  
     const classes = useStyles();
 
     const [type,setType]=React.useState('');
