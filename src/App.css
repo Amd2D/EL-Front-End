@@ -1,6 +1,6 @@
 .homepage {
   background-image: url(./mainBG.jpg);
-  width: 100%;
+  width: 80%;
   height: 100%;
   background-size: cover;
   background-position: center center;
@@ -19,13 +19,17 @@
 }
 
 .body {
+  display:flex;
+  flex-direction: column;
   text-align:center;
+  align-items: center;
+  justify-content: center;
   color: white;
 }
 
 .itemContainer{
   background-image: url(./mainBG.jpg);
-  width: 100%;
+  width: 80%;
   height: 100%;
   background-size: cover;
   background-position: center center;
@@ -34,5 +38,6 @@
   padding:0;
   display: flex;
   flex-direction: row;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-around;
+  align-items: center;
 }
