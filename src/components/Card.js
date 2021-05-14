@@ -105,6 +105,7 @@ export default function Items() {
                     inputProps={{ 'aria-label': 'search' }}
                 />
             </div>
+
             <div className='inputField'>
                 <p id="simple-modal-description">
                     Type:
@@ -165,6 +166,7 @@ export default function Items() {
                 startIcon={<SaveIcon />}
             >Update
             </Button>
+
         </div>
     );
 
