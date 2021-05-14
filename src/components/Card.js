@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Items() {
+export default function Items({name,id,type,price,img,desc}) {
     const classes = useStyles();
 
     const [modalStyle] = React.useState(getModalStyle);
@@ -183,33 +183,32 @@ export default function Items() {
 
     return (
         <>
-        <Card className={classes.root}>
+        <Card  className={classes.root}>
                 <CardMedia
                     component="img"
-                    alt="Laptop"
+                    alt={type}
                     height="100%"
                     maxwidth="100%"
-                    image='https://www.lenovo.com/medias/lenovo-laptop-gaming-legion-7-16in-amd-gallery-11.png?context=bWFzdGVyfHJvb3R8MTAzOTg1fGltYWdlL3BuZ3xoOWQvaDRkLzExNDg0MTMyNDA5Mzc0LnBuZ3w5ZTBkYzIwMmU4MjRkMTM1MTIzZjhhZTk2ZjFjNGJjMmQ3YTE5MWFjMzg4Y2RmZDk3YjZkM2E3Nzk0MjdjNjJj'
-                    title="Laptop"
+                    image={img}
+                    title={type}
                 />
         </Card>
             <Card className={classes.root}>
                 <CardContent>
                     <div className={classes.itemTitle}>
                         <Typography gutterBottom={true} variant="h4" component="h2" align='center'>
-                            Laptop - Lenovo Legion 7
+                            {type} - {name}
                         </Typography>
                     </div>
                     <div className={classes.itemDescription}>
                         <Typography paragraph={true} gutterBottom={true} variant="body1" color="textSecondary"
                                     component="p">
-                            Description: The Lenovo Legion 7i laptop is one hell of a machine. Powerful, great screen
-                            and graphics, good sound, very good battery life, it ticks just about every box
+                            Description: {desc}
                         </Typography>
                     </div>
                     <div className={classes.itemPrice}>
                         <Typography gutterBottom={true} variant="h5" component="h2" align='right'>
-                            Price: 1800$
+                            Price: {price}$
                         </Typography>
                     </div>
                 </CardContent>
