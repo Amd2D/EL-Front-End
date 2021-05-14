@@ -86,7 +86,7 @@ export default function Home(){
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
 
-    
+
 
     const update=e=>{
         setType(e.target.value)
@@ -101,11 +101,11 @@ export default function Home(){
     };
 
     if (alOp===true){
-        
+
         alert(msg);
         dispatch(setAlert(false));
         dispatch(getAllItems());
-       
+
     }
 
 
@@ -138,7 +138,7 @@ export default function Home(){
         }
         dispatch(createItem(data));
     }
-    
+
 
 
     const body = (
@@ -232,7 +232,7 @@ export default function Home(){
                 color="primary"
                 className={classes.updateButton}
                 startIcon={<SaveIcon />}
-            >Update
+            >Save
             </Button>
 
         </div>
@@ -247,7 +247,7 @@ export default function Home(){
         }
     }
 
-    
+
 
     return(
         <div className="homepage">

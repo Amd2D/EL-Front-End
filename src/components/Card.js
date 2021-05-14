@@ -15,6 +15,7 @@ import InputBase from "@material-ui/core/InputBase";
 import SaveIcon from "@material-ui/icons/Save";
 import {deleteItem,setAlert, getAllItems, updateItem} from "../actions/actions";
 import {useDispatch,useSelector} from "react-redux"
+import {Link} from "react-router-dom";
 
 function getModalStyle() {
     const top = 50
@@ -81,6 +82,9 @@ const useStyles = makeStyles((theme) => ({
     },
     itemTitle:{
         marginBottom:"40px",
+        alignSelf:'center',
+        justifyContent:'center',
+        textAlign:'center'
     },
     itemDescription:{
         marginBottom:"40px",
@@ -88,20 +92,43 @@ const useStyles = makeStyles((theme) => ({
     itemPrice:{
         marginBottom:"40px",
     },
+    container:{
+        display:'flex',
+        flexDirection:'column',
+        alignItems:'center',
+        alignSelf:'center'
+    },
+    cards:{
+        display:'flex',
+        flexDirection:'row',
+        alignItems:'center',
+        alignSelf:'center',
+        justifyContent:'space-around'
+    },
+    returnButton:{
+        marginTop:'40px'
+    },
+    browseButton: {
+        margin: theme.spacing(1),
+        backgroundColor:'#0c274e',
+        '&:hover': {
+            backgroundColor: '#0c274e',
+        },
+    },
 }));
 
 export default function Items({name,id,type,price,img,desc}) {
     const classes = useStyles();
 
-   
+
     const alOp=useSelector(state=>state.Item.alert_msg);
     const msg=useSelector(state=>state.Item.msg);
 
-    const [newName,setName]=useState(name);
-    const [newType,setType]=useState(type);
-    const [newPrice,setPrice]=useState(price);
-    const [newImg,setImg]=useState(img);
-    const [newDesc,setDesc]=useState(desc);
+    const [newName,setName]=useState('');
+    const [newType,setType]=useState('');
+    const [newPrice,setPrice]=useState('');
+    const [newImg,setImg]=useState('');
+    const [newDesc,setDesc]=useState('');
 
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
@@ -115,11 +142,6 @@ export default function Items({name,id,type,price,img,desc}) {
     const handleClose = () => {
         setOpen(false);
     };
-
-    useEffect(()=>{
-        dispatch(getAllItems());
-    },[])
-
 
     if (alOp===true){
         alert(msg);
@@ -162,7 +184,7 @@ export default function Items({name,id,type,price,img,desc}) {
         console.log("dispatcing")
         dispatch(updateItem(data));
     }
-    
+
 
 
     const body = (
@@ -179,7 +201,6 @@ export default function Items({name,id,type,price,img,desc}) {
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
-                    value={newName}
                     onChange={setN}
                 />
             </div>
@@ -195,7 +216,6 @@ export default function Items({name,id,type,price,img,desc}) {
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
-                    value={newType}
                     onChange={setT}
                 />
             </div>
@@ -204,13 +224,12 @@ export default function Items({name,id,type,price,img,desc}) {
                     Price:
                 </p>
                 <InputBase
-                    placeholder="bruh"
+                    placeholder="ex: 500, 1200, ..."
                     classes={{
                         root: classes.inputRoot,
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
-                    value={newPrice}
                     onChange={setP}
                 />
             </div>
@@ -219,13 +238,12 @@ export default function Items({name,id,type,price,img,desc}) {
                     Description:
                 </p>
                 <InputBase
-                    placeholder="Browse a specific item..."
+                    placeholder="ex: item specs, details, ..."
                     classes={{
                         root: classes.inputRoot,
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
-                    value={newDesc}
                     onChange={setD}
                 />
             </div>
@@ -235,13 +253,12 @@ export default function Items({name,id,type,price,img,desc}) {
                 </p>
                 <InputBase
                     onChange={setI}
-                    placeholder="Browse a specific item..."
+                    placeholder="copy and paste URL"
                     classes={{
                         root: classes.inputRoot,
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
-                    value={newImg}
                 />
             </div>
             <Button
@@ -257,7 +274,8 @@ export default function Items({name,id,type,price,img,desc}) {
     );
 
     return (
-        <>
+        <div className={classes.container}>
+        <div className={classes.cards}>
         <Card  className={classes.root}>
                 <CardMedia
                     component="img"
@@ -270,15 +288,21 @@ export default function Items({name,id,type,price,img,desc}) {
         </Card>
     <Card className={classes.root}>
             <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  {name}
+                <div className={classes.itemTitle}>
+                <Typography gutterBottom variant="h4" component="h2">
+                    {type} - {name}
                 </Typography>
+                </div>
+                <div className={classes.itemDescription}>
                 <Typography variant="body2" color="textSecondary" component="p">
                     Description: {desc}
                 </Typography>
+                </div>
+                <div className={classes.itemPrice}>
                 <Typography gutterBottom variant="h5" component="h2">
-                    Price: {price}
+                    Price: {price}$
                 </Typography>
+                </div>
             </CardContent>
         <CardActions>
             <Button
@@ -308,6 +332,17 @@ export default function Items({name,id,type,price,img,desc}) {
             </Button>
         </CardActions>
     </Card>
-        </>
+        </div>
+    <div className={classes.returnButton}>
+        <Link to="/">
+            <Button
+                variant="contained"
+                color="primary"
+                className={classes.browseButton}
+            >Back to Home page
+            </Button>
+        </Link>
+    </div>
+        </div>
     );
 }
