@@ -290,6 +290,7 @@ export default function Home(){
             </div>
             <Link to="/items">
                 <Button
+                    onClick={handleSubmit}
                     variant="contained"
                     color="primary"
                     className={classes.browseButton}

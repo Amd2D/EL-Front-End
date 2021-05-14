@@ -20,9 +20,9 @@ export default function Slider() {
                 infinite={false}
                 bullets={false}
             >
-                {/*{items_}*/}
-                <div className='itemContainer'><Items /></div>
-                <div className='itemContainer'><Items /></div>
+                {items_}
+               
+               
             </AwesomeSlider>
   );
 }
