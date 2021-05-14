@@ -8,9 +8,6 @@ import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import SaveIcon from '@material-ui/icons/Save';
 import InputBase from '@material-ui/core/InputBase';
-import Modal from '@material-ui/core/Modal';
-import bg from './mainBG.jpg'
-import {useDispatch,useSelector} from "react-redux"
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
