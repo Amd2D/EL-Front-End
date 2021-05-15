@@ -5,6 +5,10 @@ The frontend is implemented using the React framework.
 
 The backend is implemented with Java Spring Boot and can be found here: https://github.com/Michelk-byte/electronic-locator
 
+<p align='center'>
+  <img src='https://user-images.githubusercontent.com/71327414/118353191-de441a80-b56d-11eb-95be-3faadbf14b2d.png'/>
+</p>
+
 ![image](https://user-images.githubusercontent.com/71327414/118353191-de441a80-b56d-11eb-95be-3faadbf14b2d.png)
 
 ![image](https://user-images.githubusercontent.com/71327414/118353317-66c2bb00-b56e-11eb-888e-6a45b1fd0354.png)
