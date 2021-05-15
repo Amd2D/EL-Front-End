@@ -16,6 +16,10 @@ The backend is implemented with Java Spring Boot and can be found here: https://
 
 <p align='center'>
   <h1>List of Products Page</h1>
+  <img src='https://user-images.githubusercontent.com/71327414/118353595-b8b81080-b56f-11eb-8f4a-bb882b64385f.png'/>
+</p>
+
+<p align='center'>
   <img src='https://user-images.githubusercontent.com/71327414/118353322-69251500-b56e-11eb-939f-8390ca2f94b8.png'/>
 </p>
 
