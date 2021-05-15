@@ -5,7 +5,7 @@ The frontend is implemented using the React framework.
 
 The backend is implemented with Java Spring Boot and can be found here: https://github.com/Michelk-byte/electronic-locator
 
-The application is hosted on Firebase and can be found here: https://electronic-locator.web.app/
+The application is hosted on Firebase and can be found here: 
 
 <p align='center'>
   <h1>Home Page</h1>
