@@ -1,5 +1,5 @@
 # EL-Front-End
-Electronic Locator/Store consists of a Rest API where users can browse electronic products, filter theme by type, add a new item or even update and/or delete an item from the list of products.
+Electronic Locator/Store consists of a Rest API where users can browse electronic products, filter them by type, add a new item or even update and/or delete an item from the list of products.
 
 The frontend is implemented using the React framework.
 
