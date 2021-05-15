@@ -13,7 +13,7 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Modal from "@material-ui/core/Modal";
 import InputBase from "@material-ui/core/InputBase";
 import SaveIcon from "@material-ui/icons/Save";
-import {deleteItem,setAlert, getAllItems, updateItem} from "../actions/actions";
+import {deleteItem, setAlert, getAllItems, updateItem, getItemID} from "../actions/actions";
 import {useDispatch,useSelector} from "react-redux"
 import {Link} from "react-router-dom";
 
@@ -120,7 +120,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Items({name,id,type,price,img,desc}) {
     const classes = useStyles();
 
-
+    const item=useSelector(state=>state.Item.item);
     const alOp=useSelector(state=>state.Item.alert_msg);
     const msg=useSelector(state=>state.Item.msg);
 
@@ -136,6 +136,12 @@ export default function Items({name,id,type,price,img,desc}) {
     const dispatch=useDispatch();
 
     const handleOpen = () => {
+        dispatch(getItemID(id));
+        setName(name)
+        setDesc(desc)
+        setPrice(price)
+        setImg(img)
+        setType(type)
         setOpen(true);
     };
 
@@ -202,6 +208,7 @@ export default function Items({name,id,type,price,img,desc}) {
                     }}
                     inputProps={{ 'aria-label': 'search' }}
                     onChange={setN}
+                    value={newName}
                 />
             </div>
 
@@ -217,6 +224,7 @@ export default function Items({name,id,type,price,img,desc}) {
                     }}
                     inputProps={{ 'aria-label': 'search' }}
                     onChange={setT}
+                    value={newType}
                 />
             </div>
             <div className={classes.inputField}>
@@ -231,6 +239,7 @@ export default function Items({name,id,type,price,img,desc}) {
                     }}
                     inputProps={{ 'aria-label': 'search' }}
                     onChange={setP}
+                    value={newPrice}
                 />
             </div>
             <div className={classes.inputField}>
@@ -245,6 +254,7 @@ export default function Items({name,id,type,price,img,desc}) {
                     }}
                     inputProps={{ 'aria-label': 'search' }}
                     onChange={setD}
+                    value={newDesc}
                 />
             </div>
             <div className={classes.inputField}>
@@ -259,6 +269,7 @@ export default function Items({name,id,type,price,img,desc}) {
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
+                    value={newImg}
                 />
             </div>
             <Button

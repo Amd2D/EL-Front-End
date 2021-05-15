@@ -2,10 +2,13 @@ export const GET_ALL_ITEMS="GET_ALL_ITEMS"
 export const GET_ITEMS="GET_ITEMS"
 export const SET_ITEMS="SET_ITEMS"
 
+export const GET_ITEM="GET_ITEM"
+export const SET_ITEM="SET_ITEM"
+
 export const DELETE_ITEM="DELETE_ITEM"
 
 export const SET_MSG="SET_MSG"
-export const SET_ALERT ="SET_ALERT"  
+export const SET_ALERT ="SET_ALERT"
 
 export const CREATE_ITEM="CREATE_ITEM"
 export const UPDATE_ITEM="UPDATE_ITEM"
@@ -21,6 +24,16 @@ export const getItems=(data)=>({
 
 export const setItems=(data)=>({
     type:SET_ITEMS,
+    payload:data
+})
+
+export const getItemID=(data)=>({
+    type:GET_ITEM,
+    payload:data
+})
+
+export const setItemID=(data)=>({
+    type:SET_ITEM,
     payload:data
 })
 
