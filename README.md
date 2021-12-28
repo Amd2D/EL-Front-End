@@ -1,7 +1,7 @@
 # EL-Front-End
 Electronic Locator/Store consists of a Rest API where users can browse electronic products, filter them by type, add a new item or even update and/or delete an item from the list of products.
 
-The frontend is implemented using the React framework.
+The frontend is implemented using the React library.
 
 The backend is implemented with Java Spring Boot and can be found here: https://github.com/Michelk-byte/electronic-locator
 
